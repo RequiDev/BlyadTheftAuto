@@ -42,6 +42,7 @@ namespace BlyadTheftAuto
 			Console.Title = $"BlyadTheftAuto@{System.Environment.UserName}";
 			Console.ForegroundColor = ConsoleColor.White;
 			Console.WriteWatermark();
+            Console.CursorVisible = false;
 
 			Features.Add(new BoolFeature("Master Toggle", Keys.MButton));
 			Features.Add(new BoolFeature("God Mode", Keys.NumPad0));
