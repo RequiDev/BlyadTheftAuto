@@ -1,4 +1,4 @@
-﻿using BlyadTheftAuto.ConsoleSystem;
+﻿using System;
 using BlyadTheftAuto.Extensions;
 using BlyadTheftAuto.FeatureSystem;
 using BlyadTheftAuto.GrandTheftAuto.Models;
@@ -11,6 +11,8 @@ using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using Console = BlyadTheftAuto.ConsoleSystem.Console;
+using ConsoleColor = BlyadTheftAuto.ConsoleSystem.ConsoleColor;
 
 namespace BlyadTheftAuto
 {
@@ -37,8 +39,8 @@ namespace BlyadTheftAuto
 		private static VehicleHandling _currentVehicleHandling;
 
 		internal static void Main(string[] args)
-		{
-			Console.SetWindowSize(Console.WindowWidth, 35);
+        {
+            Console.SetWindowSize(Console.WindowWidth, 35);
 			Console.Title = $"BlyadTheftAuto@{System.Environment.UserName}";
 			Console.ForegroundColor = ConsoleColor.White;
 			Console.WriteWatermark();
@@ -97,11 +99,11 @@ namespace BlyadTheftAuto
 				}
 
 				BlyadTheftAuto.Memory = new ProcessMemory(process);
-				//BlyadTheftAuto.Game = new PatternScan(BlyadTheftAuto.Memory, "GTA5.exe");
+				BlyadTheftAuto.Game = new PatternScan(BlyadTheftAuto.Memory, "GTA5.exe");
 			}
 			
 			Console.WriteLine("\n  Offsets:");
-			Console.WriteOffset("World", SignatureManager.GetWorld().Subtract(BlyadTheftAuto.Memory.MainModule.BaseAddress));
+            Console.WriteOffset("World", SignatureManager.GetWorld().Subtract(BlyadTheftAuto.Memory.MainModule.BaseAddress));
 			//Console.WriteOffset("Ammo", AmmoPtr = new System.IntPtr(0x0F71C38));
 			//Console.WriteOffset("Reload", ReloadPtr = new System.IntPtr(0x0F71C7D));
 
@@ -173,6 +175,7 @@ namespace BlyadTheftAuto
 				vehicleHandling.DeformationDamage = carGodMode ? 0.0f : 1;
 				if (carGodMode)
 					vehicle.BulletproofTires = true;
+                vehicle.BoostAmount = Int32.MaxValue;
 
 				weapon.BatchSpread = Features.ByName<BoolFeature>("No Spread").Value ? 0.0f : _backupWeapon.BatchSpread;
 				weapon.Spread = Features.ByName<BoolFeature>("No Spread").Value ? 0.0f : _backupWeapon.Spread;

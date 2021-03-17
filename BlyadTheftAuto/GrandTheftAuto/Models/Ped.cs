@@ -56,30 +56,30 @@ namespace BlyadTheftAuto.GrandTheftAuto.Models
 
 		public PlayerInfo GetPlayerInfo()
 		{
-			return new PlayerInfo(new IntPtr(BitConverter.ToInt64(readData, 0x10B8)));
+			return new PlayerInfo(new IntPtr(BitConverter.ToInt64(readData, 0x10c8)));
 		}
 
 		public Weapon GetWeapon()
 		{
-			var weaponManager = new IntPtr(BitConverter.ToInt64(readData, 0x10C8));
+			var weaponManager = new IntPtr(BitConverter.ToInt64(readData, 0x10D8));
 			return new Weapon(Memory.Read<IntPtr>(weaponManager + 0x20));
 		}
 
 		public Vehicle GetVehicle()
 		{
-			return new Vehicle(new IntPtr(BitConverter.ToInt64(readData, 0xD28)));
+			return new Vehicle(new IntPtr(BitConverter.ToInt64(readData, 0xD30)));
 		}
 
 		public bool CanBeRagdolled
 		{
 			get
 			{
-				var btRead = readData[0x10A8];
+				var btRead = readData[0x10B8];
 				return (btRead & 0x20) == 0x20;
 			}
 			set
 			{
-				var btRead = readData[0x10A8];
+				var btRead = readData[0x10B8];
 				if (value)
 				{
 					if ((btRead & 0x20) != 0x20) btRead |= 0x20;
@@ -89,7 +89,7 @@ namespace BlyadTheftAuto.GrandTheftAuto.Models
 					if ((btRead & 0x20) == 0x20) btRead ^= 0x20;
 				}
 
-				Memory.Write(address + 0x10A8, btRead);
+				Memory.Write(address + 0x10B8, btRead);
 			}
 		}
 
@@ -97,12 +97,12 @@ namespace BlyadTheftAuto.GrandTheftAuto.Models
 		{
 			get
 			{
-				var btRead = readData[0x13EC];
+				var btRead = readData[1403];
 				return (btRead & 0x1) != 0x1;
 			}
 			set
 			{
-				var btRead = readData[0x13EC];
+				var btRead = readData[1403];
 				if (!value)
 				{
 					if ((btRead & 0x1) != 0x1) btRead |= 0x1;
@@ -112,7 +112,7 @@ namespace BlyadTheftAuto.GrandTheftAuto.Models
 					if ((btRead & 0x1) == 0x1) btRead ^= 0x1;
 				}
 
-				Memory.Write(address + 0x13EC, btRead);
+				Memory.Write(address + 1403, btRead);
 			}
 		}
 
@@ -120,7 +120,7 @@ namespace BlyadTheftAuto.GrandTheftAuto.Models
 		{
 			get
 			{
-				var btRead = readData[0x146B];
+				var btRead = readData[0x1482];
 				return ((btRead >> 4) & 1) == 0;
 			}
 		}

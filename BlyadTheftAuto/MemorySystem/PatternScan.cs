@@ -41,7 +41,7 @@ namespace BlyadTheftAuto.MemorySystem
 
             baseAddress = module.BaseAddress;
 			size = module.ModuleMemorySize;
-
+            
 			dump = memory.ReadByteArray(baseAddress, size);
         }
 

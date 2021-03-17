@@ -21,7 +21,7 @@ namespace BlyadTheftAuto.GrandTheftAuto.Models
 
 		public VehicleHandling GetHandling()
 		{
-			return new VehicleHandling(new IntPtr(BitConverter.ToInt64(readData, 0x918)));
+			return new VehicleHandling(new IntPtr(BitConverter.ToInt64(readData, 0x938)));
 		}
 
 		public VehicleColors GetColors()

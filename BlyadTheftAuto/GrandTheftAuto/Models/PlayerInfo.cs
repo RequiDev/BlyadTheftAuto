@@ -23,23 +23,23 @@ namespace BlyadTheftAuto.GrandTheftAuto.Models
 
 		public void Update()
 		{
-			_readData = Memory.ReadByteArray(_address, 0xC08);
+			_readData = Memory.ReadByteArray(_address, 0x0CF4);
 		}
 
 		public string GetName()
 		{
-			return Memory.ReadString(new IntPtr(BitConverter.ToInt64(_readData, 0x7C)));
+			return Memory.ReadString(new IntPtr(BitConverter.ToInt64(_readData, 0xA4)));
 		}
 
 		public int WantedLevel
 		{
 			get
 			{
-				return BitConverter.ToInt32(_readData, 0x818);
+				return BitConverter.ToInt32(_readData, 0x888);
 			}
 			set
 			{
-				Memory.Write(_address + 0x818, value);
+				Memory.Write(_address + 0x888, value);
 			}
 		}
 
@@ -47,11 +47,11 @@ namespace BlyadTheftAuto.GrandTheftAuto.Models
 		{
 			get
 			{
-				return BitConverter.ToInt32(_readData, 0x1F8);
+				return BitConverter.ToInt32(_readData, 0x0219);
 			}
 			set
 			{
-				Memory.Write(_address + 0x1F8, value);
+				Memory.Write(_address + 0x0219, value);
 			}
 		}
 
@@ -59,11 +59,11 @@ namespace BlyadTheftAuto.GrandTheftAuto.Models
 		{
 			get
 			{
-				return BitConverter.ToSingle(_readData, 0x0148);
+				return BitConverter.ToSingle(_readData, 0x0170);
 			}
 			set
 			{
-				Memory.Write(_address + 0x0148, value);
+				Memory.Write(_address + 0x0170, value);
 			}
 		}
 
@@ -71,11 +71,11 @@ namespace BlyadTheftAuto.GrandTheftAuto.Models
 		{
 			get
 			{
-				return BitConverter.ToSingle(_readData, 0x14C);
+				return BitConverter.ToSingle(_readData, 0x0CF0);
 			}
 			set
 			{
-				Memory.Write(_address + 0x14C, value);
+				Memory.Write(_address + 0x0CF0, value);
 			}
 		}
 
