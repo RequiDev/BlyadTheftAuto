@@ -58,7 +58,7 @@ namespace BlyadTheftAuto
 			Features.Add(new BoolFeature("Anti NPC", Keys.NumPad6));
 			Features.Add(new BoolFeature("No Spread", Keys.NumPad7));
 			Features.Add(new BoolFeature("No Recoil", Keys.NumPad8));
-			Features.Add(new BoolFeature("Fast Reload", Keys.NumPad9));
+			Features.Add(new BoolFeature("No Reload", Keys.NumPad9));
 
 			Features.Add(new BoolFeature("Super Jump", Keys.F5));
 			Features.Add(new BoolFeature("Explosive Melee", Keys.F6));
@@ -164,7 +164,7 @@ namespace BlyadTheftAuto
 
 				localPlayer.GodMode = Features.ByName<BoolFeature>("God Mode").Value;
 				localPlayer.CanBeRagdolled = !Features.ByName<BoolFeature>("God Mode").Value;
-				localPlayer.HasSeatBelt = Features.ByName<BoolFeature>("God Mode").Value;
+				//localPlayer.HasSeatBelt = Features.ByName<BoolFeature>("God Mode").Value;
 				if (Features.ByName<BoolFeature>("Never Wanted").Value) info.WantedLevel = 0;
 
 				var carGodMode = Features.ByName<BoolFeature>("Car God Mode").Value;
@@ -177,12 +177,7 @@ namespace BlyadTheftAuto
 					vehicle.BulletproofTires = true;
                 vehicle.BoostAmount = Int32.MaxValue;
 
-				weapon.BatchSpread = Features.ByName<BoolFeature>("No Spread").Value ? 0.0f : _backupWeapon.BatchSpread;
-				weapon.Spread = Features.ByName<BoolFeature>("No Spread").Value ? 0.0f : _backupWeapon.Spread;
-
-				weapon.Recoil = Features.ByName<BoolFeature>("No Recoil").Value ? 0.0f : _backupWeapon.Recoil;
-
-				info.RunSpeed = Features.ByName<IntFeature>("Run/Swim Speed").Value;
+                info.RunSpeed = Features.ByName<IntFeature>("Run/Swim Speed").Value;
 				info.SwimSpeed = Features.ByName<IntFeature>("Run/Swim Speed").Value;
 
 				vehicleHandling.Acceleration = Features.ByName<IntFeature>("Acceleration").Value * _backupVehicleHandling.Acceleration;
@@ -226,7 +221,7 @@ namespace BlyadTheftAuto
 
 				//weapon.ReloadTime =  _backupWeapon.ReloadTime * (Features.ByName<BoolFeature>("Fast Reload").Value ? 10 : 1);
 
-				var superBullets = Features.ByName<BoolFeature>("Super Bullets").Value;
+                var superBullets = Features.ByName<BoolFeature>("Super Bullets").Value;
 				weapon.Damage = _backupWeapon.Damage * (superBullets ? 10 : 1);
 				weapon.BulletBatch = _backupWeapon.BulletBatch * (superBullets ? 25 : 1);
 				weapon.MuzzleVelocity = _backupWeapon.MuzzleVelocity * (superBullets ? 10 : 1);
@@ -234,10 +229,8 @@ namespace BlyadTheftAuto
 				weapon.SpinUp = superBullets ? 0 : _backupWeapon.SpinUp;
 				weapon.Spin = superBullets ? 0 : _backupWeapon.Spin;
 
-				//if (Features.ByName<BoolFeature>("No Reload").Value)
-				//	Memory.WriteByteArray(ReloadPtr, three_nops);
-				//else
-				//	Memory.WriteByteArray(ReloadPtr, reload_backup);
+                if (Features.ByName<BoolFeature>("No Reload").Value)
+                    _currentWeapon.PrimaryAmmoCount.AmmoCount = 9999;
 
 				//if (Features.ByName<BoolFeature>("Infinite Ammo").Value)
 				//	Memory.WriteByteArray(AmmoPtr, three_nops);

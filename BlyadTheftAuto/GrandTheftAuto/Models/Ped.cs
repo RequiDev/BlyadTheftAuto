@@ -121,8 +121,8 @@ namespace BlyadTheftAuto.GrandTheftAuto.Models
 			get
 			{
 				var btRead = readData[0x1482];
-				return ((btRead >> 4) & 1) == 0;
-			}
+                return btRead == 4;
+            }
 		}
 	}
 }

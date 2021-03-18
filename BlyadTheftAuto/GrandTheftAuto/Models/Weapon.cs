@@ -8,6 +8,30 @@ using System.Threading.Tasks;
 
 namespace BlyadTheftAuto.GrandTheftAuto.Models
 {
+	internal class PrimaryAmmoCount
+	{
+        private static ProcessMemory Memory => BlyadTheftAuto.Memory;
+        private byte[] _readData;
+        private IntPtr _address;
+
+        public PrimaryAmmoCount(IntPtr address)
+        {
+            _address = address;
+            Update();
+
+        }
+        public void Update()
+        {
+            _readData = Memory.ReadByteArray(_address, 0x1C);
+        }
+
+		public int AmmoCount
+        {
+            get => BitConverter.ToInt32(_readData, 0x18);
+            set => Memory.Write(_address + 0x18, value);
+        }
+	}
+
 	internal class Weapon
 	{
 		private static ProcessMemory Memory => BlyadTheftAuto.Memory;
@@ -46,6 +70,16 @@ namespace BlyadTheftAuto.GrandTheftAuto.Models
 				return BitConverter.ToInt32(_readData, 0x10);
 			}
 		}
+
+        public PrimaryAmmoCount PrimaryAmmoCount
+        {
+            get
+            {
+				var ammoInfo = new IntPtr(BitConverter.ToInt64(_readData, 0x60));
+                var ammoCount = Memory.Read<IntPtr>(ammoInfo + 0x8);
+                return new PrimaryAmmoCount(Memory.Read<IntPtr>(ammoCount));
+            }
+        }
 
 		public float Damage
 		{

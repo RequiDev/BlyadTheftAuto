@@ -40,6 +40,7 @@ namespace BlyadTheftAuto.GrandTheftAuto.Models
 			set
 			{
 				Memory.Write(_address + 0x888, value);
+                Memory.Write(_address + 0x88C, value);
 			}
 		}
 
@@ -47,11 +48,11 @@ namespace BlyadTheftAuto.GrandTheftAuto.Models
 		{
 			get
 			{
-				return BitConverter.ToInt32(_readData, 0x0219);
+				return BitConverter.ToInt32(_readData, 0x218);
 			}
 			set
 			{
-				Memory.Write(_address + 0x0219, value);
+				Memory.Write(_address + 0x218, value);
 			}
 		}
 
