@@ -97,12 +97,12 @@ namespace BlyadTheftAuto.GrandTheftAuto.Models
 		{
 			get
 			{
-				var btRead = readData[1403];
+				var btRead = readData[0x140C];
 				return (btRead & 0x1) != 0x1;
 			}
 			set
 			{
-				var btRead = readData[1403];
+				var btRead = readData[0x140C];
 				if (!value)
 				{
 					if ((btRead & 0x1) != 0x1) btRead |= 0x1;
@@ -112,7 +112,7 @@ namespace BlyadTheftAuto.GrandTheftAuto.Models
 					if ((btRead & 0x1) == 0x1) btRead ^= 0x1;
 				}
 
-				Memory.Write(address + 1403, btRead);
+				Memory.Write(address + 0x140C, btRead);
 			}
 		}
 
@@ -120,9 +120,9 @@ namespace BlyadTheftAuto.GrandTheftAuto.Models
 		{
 			get
 			{
-				var btRead = readData[0x1482];
-                return btRead == 4;
-            }
+				var btRead = readData[0x148B];
+                return ((btRead >> 4) & 1) == 0;
+			}
 		}
 	}
 }

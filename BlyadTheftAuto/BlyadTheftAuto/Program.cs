@@ -164,7 +164,7 @@ namespace BlyadTheftAuto
 
 				localPlayer.GodMode = Features.ByName<BoolFeature>("God Mode").Value;
 				localPlayer.CanBeRagdolled = !Features.ByName<BoolFeature>("God Mode").Value;
-				//localPlayer.HasSeatBelt = Features.ByName<BoolFeature>("God Mode").Value;
+				localPlayer.HasSeatBelt = Features.ByName<BoolFeature>("God Mode").Value;
 				if (Features.ByName<BoolFeature>("Never Wanted").Value) info.WantedLevel = 0;
 
 				var carGodMode = Features.ByName<BoolFeature>("Car God Mode").Value;
